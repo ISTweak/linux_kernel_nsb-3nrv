@@ -48,6 +48,44 @@ struct rtl8367_extif_config {
 	struct rtl8367_port_ability ability;
 };
 
+/*
+ *      - Definition  LED Statuses      Description
+ *      - 0000        LED_Off           LED pin Tri-State.
+ *      - 0001        Dup/Col           Collision, Full duplex Indicator.
+ *      - 0010        Link/Act          Link, Activity Indicator.
+ *      - 0011        Spd1000           1000Mb/s Speed Indicator.
+ *      - 0100        Spd100            100Mb/s Speed Indicator.
+ *      - 0101        Spd10             10Mb/s Speed Indicator.
+ *      - 0110        Spd1000/Act       1000Mb/s Speed/Activity Indicator.
+ *      - 0111        Spd100/Act        100Mb/s Speed/Activity Indicator.
+ *      - 1000        Spd10/Act         10Mb/s Speed/Activity Indicator.
+ *      - 1001        Spd100 (10)/Act   10/100Mb/s Speed/Activity Indicator.
+ *      - 1010        LoopDetect        LoopDetect Indicator.
+ *      - 1011        EEE               EEE Indicator.
+ *      - 1100        Link/Rx           Link, Activity Indicator.
+ *      - 1101        Link/Tx           Link, Activity Indicator.
+ *      - 1110        Master            Link on Master Indicator.
+ *      - 1111        Act               Activity Indicator. Low for link established.
+ */
+enum rtl8367_led_mode {
+	RTL8367_LED_MODE_OFF		= 0,
+	RTL8367_LED_MODE_DUP_COL,
+	RTL8367_LED_MODE_LINK_ACT,
+	RTL8367_LED_MODE_SPD1000,
+	RTL8367_LED_MODE_SPD100,
+	RTL8367_LED_MODE_SPD10,
+	RTL8367_LED_MODE_SPD1000_ACT,
+	RTL8367_LED_MODE_SPD100_ACT,
+	RTL8367_LED_MODE_SPD10_ACT,
+	RTL8367_LED_MODE_SPD100_10_ACT,
+	RTL8367_LED_MODE_LOOP_DETECT,
+	RTL8367_LED_MODE_EEE,
+	RTL8367_LED_MODE_LINK_RX,
+	RTL8367_LED_MODE_LINK_TX,
+	RTL8367_LED_MODE_MASTER,
+	RTL8367_LED_MODE_ACT,
+};
+
 struct rtl8367_platform_data {
 	unsigned gpio_sda;
 	unsigned gpio_sck;
@@ -56,6 +94,9 @@ struct rtl8367_platform_data {
 
 	struct rtl8367_extif_config *extif0_cfg;
 	struct rtl8367_extif_config *extif1_cfg;
+	enum rtl8367_led_mode led_cfg0;
+	enum rtl8367_led_mode led_cfg1;
+	enum rtl8367_led_mode led_cfg2;
 };
 
 #endif /*  _RTL8367_H */

@@ -910,6 +910,13 @@ static int rtl8367b_setup(struct rtl8366_smi *smi)
 	data &= ~(0x01 << 5);
 	REG_WR(smi, 0x130F, data);
 
+	/* LED configurations */
+	data = 0x0000 |
+		(pdata->led_cfg2 << 8) |
+		(pdata->led_cfg1 << 4) |
+		(pdata->led_cfg0);
+	REG_WR(smi, 0x1B03, data);
+
 	return 0;
 }
 
