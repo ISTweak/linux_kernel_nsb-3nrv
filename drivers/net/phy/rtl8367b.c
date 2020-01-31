@@ -867,6 +867,7 @@ static int rtl8367b_setup(struct rtl8366_smi *smi)
 	struct rtl8367_platform_data *pdata;
 	int err;
 	int i;
+	u32 data;
 
 	pdata = smi->parent->platform_data;
 
@@ -903,6 +904,11 @@ static int rtl8367b_setup(struct rtl8366_smi *smi)
 				RTL8367B_PORT_MISC_CFG_EGRESS_MODE_SHIFT,
 			RTL8367B_PORT_MISC_CFG_EGRESS_MODE_ORIGINAL <<
 				RTL8367B_PORT_MISC_CFG_EGRESS_MODE_SHIFT);
+
+	/* set All-Port-Enable */
+	REG_RD(smi, 0x130F, &data);
+	data &= ~(0x01 << 5);
+	REG_WR(smi, 0x130F, data);
 
 	return 0;
 }
