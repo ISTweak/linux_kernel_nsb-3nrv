@@ -6535,6 +6535,9 @@ static int __devinit cs_ni_init_module_probe(struct platform_device *pdev)
 					"%d .\n", i);
 			return -ENOMEM;
 		}
+
+		snprintf(dev->name, IFNAMSIZ, "eth%d", i);
+
 		/* 3.4.11 Change for register as platform device */
 		SET_NETDEV_DEV(dev, &pdev->dev);
 		ni_private_data.dev[i] = dev;
