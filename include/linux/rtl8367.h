@@ -52,6 +52,7 @@ struct rtl8367_platform_data {
 	unsigned gpio_sda;
 	unsigned gpio_sck;
 	void (*hw_reset)(bool active);
+	char *mii_bus_name_id;	/* for MDIO bus interface */
 
 	struct rtl8367_extif_config *extif0_cfg;
 	struct rtl8367_extif_config *extif1_cfg;

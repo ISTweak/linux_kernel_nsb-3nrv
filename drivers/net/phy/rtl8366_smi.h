@@ -29,6 +29,11 @@ struct rtl8366_mib_counter {
 	const char	*name;
 };
 
+enum rtl8366_smi_if {
+	RTL8366_SMI_IF_GPIO	= 0,
+	RTL8366_SMI_IF_MDIO,
+};
+
 struct rtl8366_smi {
 	struct device		*parent;
 	unsigned int		gpio_sda;
@@ -41,6 +46,11 @@ struct rtl8366_smi {
 	struct mii_bus		*mii_bus;
 	int			mii_irq[PHY_MAX_ADDR];
 	struct switch_dev	sw_dev;
+
+	enum rtl8366_smi_if	smi_if;
+	struct mii_bus		*mdio_mii;
+	int			(*smi_if_read_reg)( struct rtl8366_smi*, u32, u32* );
+	int			(*smi_if_write_reg)( struct rtl8366_smi*, u32, u32, bool );
 
 	unsigned int		cpu_port;
 	unsigned int		num_ports;

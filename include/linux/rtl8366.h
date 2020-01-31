@@ -30,6 +30,7 @@ struct rtl8366_platform_data {
 	unsigned	gpio_sda;
 	unsigned	gpio_sck;
 	void		(*hw_reset)(bool active);
+	char		*mii_bus_name_id;	/* for MDIO bus interface */
 
 	unsigned	num_initvals;
 	struct rtl8366_initval *initvals;
