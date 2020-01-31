@@ -88,6 +88,37 @@ static struct class mdio_bus_class = {
 	.dev_release	= mdiobus_release,
 };
 
+static int mdio_name_match( struct device *dev, const void *mdio_name )
+{
+	struct mii_bus *mii = to_mii_bus(dev);
+	int len;
+	int res = 0;
+
+	len = strlen(mii->name);
+	if (len <= 0)
+		return 0;
+
+	if ((strncmp(mdio_name, mii->name, len) == 0) &&
+			(strcmp(&(mdio_name[len]), mii->id) == 0))
+		res = 1;
+
+	return res;
+}
+
+struct mii_bus *mdio_find_bus_by_name( char *name )
+{
+	struct device *d;
+
+	if (!name)
+		return NULL;
+
+	d = class_find_device( &mdio_bus_class, NULL, name,
+				mdio_name_match );
+
+	return d ? to_mii_bus(d) : NULL;
+}
+EXPORT_SYMBOL(mdio_find_bus_by_name);
+
 /**
  * mdiobus_register - bring up all the PHYs on a given bus and attach them to bus
  * @bus: target mii_bus
